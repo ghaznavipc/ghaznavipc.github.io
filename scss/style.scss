@@ -1,0 +1,56 @@
+@import url('https://v1.fontapi.ir/css/Vazir');
+
+* {
+    margin: 0;
+}
+
+:root {
+    direction: rtl;
+}
+
+body {
+    font-family: 'Vazir', IRYekan, Dana, estedad, sahel, 'b roya', arial;
+    box-sizing: border-box;
+}
+
+a {
+    color: rgb(158, 106, 10);
+    text-decoration: none;
+    padding: .5em;
+
+    &::after {
+        content: '';
+        display: block;
+
+        width: 0;
+        height: 1px;
+        background-color: rgb(158, 106, 10);
+        transition: width .3s ease;
+    }
+    &:hover::after {
+        width: 100%;
+    }
+}
+
+hgroup {
+    text-align: center;
+    margin: 5em 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+.container {
+    max-width: 1150px;
+
+    padding: 1em;
+    margin: 0 auto;
+}
+
+.contact {
+    direction: ltr;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2em 1em;
+}
