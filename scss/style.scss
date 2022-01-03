@@ -48,6 +48,12 @@ img {
     margin: 0 auto;
 }
 
+#profile-picture {
+    width: 150px;
+    border-radius: 50%;
+    box-shadow: 36px -12px #f0dea8;
+}
+
 .contact {
     direction: ltr;
     display: flex;
