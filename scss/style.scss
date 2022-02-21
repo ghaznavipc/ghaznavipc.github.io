@@ -59,7 +59,9 @@ img {
     display: flex;
     flex-direction: column;
     padding: 2em 1em;
-    
+    border-radius: 40px;
+    background-color: rgba($color: #f0dea8, $alpha: .2);
+
     a {
         margin: 10px 5px;
     }
