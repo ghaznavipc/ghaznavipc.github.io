@@ -14,7 +14,7 @@ body {
 }
 
 a {
-    color: rgb(158, 106, 10);
+    color: rgb(10, 91, 158);
     text-decoration: none;
     padding: .5em;
 
@@ -24,7 +24,7 @@ a {
 
         width: 0;
         height: 1px;
-        background-color: rgb(158, 106, 10);
+        background-color: rgb(35, 201, 223);
         transition: width .3s ease;
     }
     &:hover::after, &:active::after {
@@ -34,7 +34,7 @@ a {
 
 hgroup {
     text-align: center;
-    margin: 5em 0;
+    margin: 3em 0;
 }
 
 img {
@@ -49,9 +49,9 @@ img {
 }
 
 #profile-picture {
-    width: 150px;
+    width: 130px;
     border-radius: 50%;
-    box-shadow: 36px -12px #f0dea8;
+    box-shadow: 32px -12px 75px #f0dea8;
 }
 
 .contact {
@@ -59,8 +59,6 @@ img {
     display: flex;
     flex-direction: column;
     padding: 2em 1em;
-    border-radius: 40px;
-    background-color: rgba($color: #f0dea8, $alpha: .2);
 
     a {
         margin: 10px 5px;
