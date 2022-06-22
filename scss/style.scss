@@ -18,18 +18,21 @@ a {
     color: rgb(10, 91, 158);
     text-decoration: none;
 
-    &::after {
-        content: '';
-        display: block;
+    &:hover, &:active {
+        color: darken($color: rgb(10, 91, 158), $amount: 20%);
+    }
+    // &::after {
+    //     content: '';
+    //     display: block;
 
-        width: 0;
-        height: 1px;
-        background-color: rgb(35, 201, 223);
-        transition: width .3s ease;
-    }
-    &:hover::after, &:active::after {
-        width: 100%;
-    }
+    //     width: 0;
+    //     height: 1px;
+    //     background-color: rgb(35, 201, 223);
+    //     transition: width .3s ease;
+    // }
+    // &:hover::after, &:active::after {
+    //     width: 100%;
+    // }
 }
 
 hgroup {
