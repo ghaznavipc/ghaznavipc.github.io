@@ -8,6 +8,149 @@
 	<title>تبدیل متن راست به چپ به چپ به راست آنلاین</title>
 	<meta name="description" content="تبدیل متون فارسی و عربی به فرمت قابل استفاده برای برنامه‌هایی که توانایی نمایش متون راست به چپ را به طور صحیح ندارند">
 
+	<style>
+		@import url("https://v1.fontapi.ir/css/Vazir");
+
+		* {
+			margin: 0;
+		}
+
+		body {
+			background-color: #eee;
+			margin: auto;
+			padding: 15px;
+			max-width: 1300px;
+		}
+
+		body,
+		textarea,
+		button,
+		#btn-process {
+			font-family: Vazir, Sahel, Estedad, Arial;
+		}
+
+		header {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		textarea {
+			min-width: 93%;
+			box-shadow: 0 3px 8px rgba(150,150,150,.15);
+		}
+
+		textarea,
+		#btn-process {
+			border: 0;
+			padding: .5em .8em;
+			border-radius: .5em;
+		}
+
+		h1,
+		.info {
+			margin-top: 20px;
+		}
+		.info {
+			margin-right: 20px;
+			opacity: .7;
+		}
+		.checkbox {
+			width: 40px;
+			height: 20px;
+		}
+		.flex {
+				flex: 1;
+		}
+
+		#btn-process {
+			height: 90px;
+			width: 100%;
+			color: #eee;
+			background-color: #13970f;
+			box-shadow: 0 3px 0 #2f6a08;
+		}
+
+		#btn-process:hover {
+			box-shadow: 0 2px 0 #2f6a08;
+			transform: translateY(1px);
+		}
+		#btn-process:active {
+			box-shadow: 0 0 0;
+			transform: translateY(3px);
+		}
+		#clpbrd {
+			color: #888888;
+		}
+		#outbox {
+			margin-top: 150px;
+		}
+
+		@media screen and (min-width : 480px) {
+			textarea {
+				min-width: 95%;
+			}
+		}
+
+		@media screen and (min-width : 840px) {
+			.checkboxes {
+				display: flex;
+			}
+			textarea {
+				min-width: 97%;
+			}
+		}
+		@media screen and (min-width : 1040px) {
+			body {
+				display: flex;
+				min-height: 96vh;
+				align-items: center;
+			}
+			header {
+				margin: 0 -200px 0 -160px;
+				transform: rotate(90deg);
+				white-space: nowrap;
+			}
+		}
+	</style>
+
+</head>
+
+<body dir="rtl">
+
+	<header>
+		<hgroup>
+			<h1>چپ‌به‌راست ساز</h1>
+			<h4 class="info">مناسب برای مکان‌هایی که متن را به صورت حرف حرف و چپ به راست نمایش می‌دهد</h4>
+		</hgroup>
+	</header>
+
+	<main class="flex">
+		<form name="writer" id="writer" action="">
+			<!-- Input Box -->
+			<textarea name="inpbox" id="inpbox" rows="6" onclick="return(update(this))" onkeyup="return(update(this))"
+				onkeydown="return(update(this))" onkeypress="return(update(this))" onmouseup="return(update(this))"
+				onmousedown="return(update(this))" placeholder="متن خود را در این قسمت بنویسید"></textarea>
+			<br>
+			<!-- Adding Control Buttons -->
+			<br>
+			<div class="checkboxes">
+				<div class="flex"><input class="checkbox" type="checkbox" onclick="toggle_farsi_numbers_to_en();">اعداد فارسی به انگلیسی تبدیل شود؟</div>
+				<div class="flex"><input class="checkbox" type="checkbox" onclick="toggle_arabic_numbers_to_en();">اعداد عربی به انگلیسی تبدیل شود؟</div>
+				<div class="flex"><input class="checkbox" type="checkbox" onclick="toggle_delete_harakat();">اعراب پاک شود؟</div>
+			</div>
+			<br>
+			<input id="btn-process" onclick="ProcessInput();" value="پردازش و کپی" type="button">
+			<div id="clpbrd"></div>
+	
+			<!-- Output Box -->
+			<textarea name="outbox" id="outbox"	rows="3" placeholder="خروجی (اگر کپی به صورت خودکار انجام نشد)"></textarea>
+			<br>
+	
+			
+		</form>
+		<div class="info">(مِثال برای مَتنِ ورودی ۶ ٦)</div>
+	</main>
+	
 	<script>
 		//default Values:
 		var change_ar_number_to_en_number = false; //enable/disable arabic numbers: [0, 1]
@@ -277,149 +420,6 @@
 		}
 
 	</script>
-
-	<style>
-		@import url("https://v1.fontapi.ir/css/Vazir");
-
-		* {
-			margin: 0;
-		}
-
-		body {
-			background-color: #eee;
-			margin: auto;
-			padding: 15px;
-			max-width: 1300px;
-		}
-
-		body,
-		textarea,
-		button,
-		#btn-process {
-			font-family: Vazir, Sahel, Estedad, Arial;
-		}
-
-		header {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		textarea {
-			min-width: 93%;
-			box-shadow: 0 3px 8px rgba(150,150,150,.15);
-		}
-
-		textarea,
-		#btn-process {
-			border: 0;
-			padding: .5em .8em;
-			border-radius: .5em;
-		}
-
-		h1,
-		.info {
-			margin-top: 20px;
-		}
-		.info {
-			margin-right: 20px;
-			opacity: .7;
-		}
-		.checkbox {
-			width: 40px;
-			height: 20px;
-		}
-		.flex {
-				flex: 1;
-		}
-
-		#btn-process {
-			height: 90px;
-			width: 100%;
-			color: #eee;
-			background-color: #13970f;
-			box-shadow: 0 3px 0 #2f6a08;
-		}
-
-		#btn-process:hover {
-			box-shadow: 0 2px 0 #2f6a08;
-			transform: translateY(1px);
-		}
-		#btn-process:active {
-			box-shadow: 0 0 0;
-			transform: translateY(3px);
-		}
-		#clpbrd {
-			color: #888888;
-		}
-		#outbox {
-			margin-top: 150px;
-		}
-
-		@media screen and (min-width : 480px) {
-			textarea {
-				min-width: 95%;
-			}
-		}
-
-		@media screen and (min-width : 840px) {
-			.checkboxes {
-				display: flex;
-			}
-			textarea {
-				min-width: 97%;
-			}
-		}
-		@media screen and (min-width : 1040px) {
-			body {
-				display: flex;
-				min-height: 96vh;
-				align-items: center;
-			}
-			header {
-				margin: 0 -200px 0 -160px;
-				transform: rotate(90deg);
-				white-space: nowrap;
-			}
-		}
-	</style>
-
-</head>
-
-<body dir="rtl">
-
-	<header>
-		<hgroup>
-			<h1>چپ‌به‌راست ساز</h1>
-			<h4 class="info">مناسب برای مکان‌هایی که متن را به صورت حرف حرف و چپ به راست نمایش می‌دهد</h4>
-		</hgroup>
-	</header>
-
-	<main class="flex">
-		<form name="writer" id="writer" action="">
-			<!-- Input Box -->
-			<textarea name="inpbox" id="inpbox" rows="6" onclick="return(update(this))" onkeyup="return(update(this))"
-				onkeydown="return(update(this))" onkeypress="return(update(this))" onmouseup="return(update(this))"
-				onmousedown="return(update(this))" placeholder="متن خود را در این قسمت بنویسید"></textarea>
-			<br>
-			<!-- Adding Control Buttons -->
-			<br>
-			<div class="checkboxes">
-				<div class="flex"><input class="checkbox" type="checkbox" onclick="toggle_farsi_numbers_to_en();">اعداد فارسی به انگلیسی تبدیل شود؟</div>
-				<div class="flex"><input class="checkbox" type="checkbox" onclick="toggle_arabic_numbers_to_en();">اعداد عربی به انگلیسی تبدیل شود؟</div>
-				<div class="flex"><input class="checkbox" type="checkbox" onclick="toggle_delete_harakat();">اعراب پاک شود؟</div>
-			</div>
-			<br>
-			<input id="btn-process" onclick="ProcessInput();" value="پردازش و کپی" type="button">
-			<div id="clpbrd"></div>
-	
-			<!-- Output Box -->
-			<textarea name="outbox" id="outbox"	rows="3" placeholder="خروجی (اگر کپی به صورت خودکار انجام نشد)"></textarea>
-			<br>
-	
-			
-		</form>
-		<div class="info">(مِثال برای مَتنِ ورودی ۶ ٦)</div>
-	</main>
 
 </body>
 
