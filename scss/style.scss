@@ -1,5 +1,6 @@
 @import 'font';
 
+$primary-color:rgb(53, 130, 194);
 
 :root {
     direction: rtl;
@@ -15,14 +16,17 @@ body {
 }
 
 a {
-    color: rgb(10, 91, 158);
+    color: $primary-color;
     text-decoration: none;
     background-color: rgba(246, 246, 246, 0.65);
     padding: .75em;
     border-radius: 1em;
 
-    &:hover, &:active {
-        color: darken($color: rgb(10, 91, 158), $amount: 20%);
+    &:hover {
+        color: darken($color: $primary-color, $amount: 20%);
+    }
+    &:active {
+        color: darken($color: $primary-color, $amount: 40%);
     }
 }
 nav {
