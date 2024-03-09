@@ -16,6 +16,7 @@ body {
 }
 
 a {
+    display: inline-block;
     color: $primary-color;
     text-decoration: none;
     background-color: rgba(246, 246, 246, 0.65);
@@ -34,6 +35,8 @@ nav {
 
     ul {
         list-style-type: none;
+        margin: 0;
+        padding: 0;
     }
 }
 header, section {
@@ -71,19 +74,29 @@ footer {
 
 .container {
     max-width: 1150px;
-    padding: 1em 1.5em;
     margin: 0 auto;
 }
 
 .flex {
     display: flex;
     flex-direction: column;
-    gap: .5em;
 
     @media (min-width: 750px) {
         flex-direction: row;
         justify-content: space-between;
     }
+}
+.flex-column {
+    flex-direction: column;
+}
+.col {
+    flex: 1;
+}
+.col-auto {
+    flex: auto;
+}
+.g-1 {
+    gap: .5em;
 }
 
 #profile-picture {
