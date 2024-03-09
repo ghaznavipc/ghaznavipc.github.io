@@ -56,10 +56,11 @@ hgroup {
         text-shadow: none;
     }
 }
-h2 {
-    background-color: rgba(167, 207, 252, 0.1);
-    transform: rotate(-10deg);
-    text-align: center;
+section {
+    h1, h2 {
+        background-color: rgba(167, 207, 252, 0.1);
+        text-align: center;
+    }
 }
 
 img {
