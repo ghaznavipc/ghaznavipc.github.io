@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seyed Mohammad Ghaznavi | .NET Developer · 3D Designer · Logo Designer</title>
+<meta name="description" content="Portfolio of Seyed Mohammad Ghaznavi — a .NET developer with a designer's eye. 21 months of experience, non-CAD 3D design, and logo design with free and legal tools." />
+
+<!-- Hide loader immediately on repeat visits -->
+<script>
+  if (sessionStorage.getItem('loaderShown') === 'true') {
+    document.documentElement.classList.add('skip-loader');
+  }
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { inter: ['Inter', 'system-ui', 'sans-serif'] },
+        colors: {
+          ink:   { DEFAULT: '#06070c', 800: '#0b0d14', 700: '#12151f', 600: '#1b1f2c' },
+          gold:  { DEFAULT: '#e8b64c', light: '#f8dc9a', dark: '#a97f22' },
+        },
+        boxShadow: { glow: '0 0 60px -15px rgba(232,182,76,.45)' }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #06070c; font-family: 'Inter', system-ui, sans-serif; }
+
+  .skip-loader #loader { display: none !important; }
+
+  ::-webkit-scrollbar { width: 9px; }
+  ::-webkit-scrollbar-track { background: #06070c; }
+  ::-webkit-scrollbar-thumb { background: #262b3a; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #e8b64c; }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 75%);
+  }
+
+  .text-glow { text-shadow: 0 0 40px rgba(232,182,76,.35); }
+
+  .card-hover { transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s; }
+  .card-hover:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(232,182,76,.35); }
+
+  .gradient-text {
+    background: linear-gradient(100deg,
+      #a97f22 0%,
+      #e8b64c 20%,
+      #fff2c2 50%,
+      #e8b64c 80%,
+      #a97f22 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    animation: goldShimmer 6s linear infinite;
+  }
+  @keyframes goldShimmer {
+    from { background-position: 0% center; }
+    to   { background-position: 200% center; }
+  }
+
+  #cursor { position: fixed; top: 0; left: 0; transition: opacity .3s; }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute;
+    bottom: 4px; left: 12px; right: 12px; height: 1px;
+    background: linear-gradient(90deg, transparent, #e8b64c, transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-link:hover::after { transform: scaleX(1); }
+
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  #marqueeTrack {
+    display: flex;
+    width: max-content;
+    animation: marqueeMove 42s linear infinite;
+  }
+  @keyframes marqueeMove {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .blob-1 { animation: blobFloat1 16s ease-in-out infinite; }
+  .blob-2 { animation: blobFloat2 20s ease-in-out infinite; }
+  @keyframes blobFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(-70px, 50px); }
+  }
+  @keyframes blobFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(70px, -60px); }
+  }
+
+  .contact-icon {
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s, color .35s, background-color .35s;
+  }
+  .contact-icon:hover { transform: translateY(-4px) scale(1.08); }
+
+  #heroSpotlight {
+    position: absolute; pointer-events: none;
+    height: 620px; width: 620px; border-radius: 9999px;
+    background: radial-gradient(circle, rgba(232,182,76,.12), rgba(232,182,76,.03) 40%, transparent 65%);
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity .35s;
+    filter: blur(8px);
+    will-change: transform, opacity;
+  }
+
+  #heroParticles {
+    position: absolute; inset: 0;
+    pointer-events: none; overflow: hidden;
+  }
+
+  .pillar-glow {
+    position: absolute; top: 0; left: 0;
+    width: 360px; height: 360px; border-radius: 9999px;
+    background: radial-gradient(circle, rgba(232,182,76,.20), transparent 65%);
+    pointer-events: none; opacity: 0;
+    transition: opacity .35s;
+    will-change: transform;
+    z-index: 1;
+    transform: translate3d(-1000px, -1000px, 0);
+  }
+
+  .portfolio-card {
+    border: 1px solid rgba(255,255,255,.09);
+    transition: border-color .5s ease, box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .portfolio-card:hover {
+    border-color: rgba(232,182,76,.65);
+    box-shadow:
+      0 0 60px -15px rgba(232,182,76,.45),
+      0 30px 60px -30px rgba(232,182,76,.35),
+      inset 0 0 40px -20px rgba(232,182,76,.25);
+  }
+
+  .portfolio-shimmer {
+    position: absolute; inset: 0; border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 35%, rgba(232,182,76,.20) 50%, transparent 65%);
+    transform: translate3d(-130%, 0, 0);
+    opacity: 0; z-index: 12;
+    animation: none;
+  }
+  .portfolio-card:hover .portfolio-shimmer {
+    animation: cardSweep 1s cubic-bezier(.2,.8,.2,1);
+    opacity: 1;
+  }
+  @keyframes cardSweep {
+    0%   { transform: translate3d(-130%, 0, 0); opacity: 1; }
+    100% { transform: translate3d(130%, 0, 0);  opacity: 0; }
+  }
+
+  .portfolio-cta {
+    display: inline-flex; align-items: center; gap: .65rem;
+    padding: .8rem 1.4rem; border-radius: .85rem;
+    border: 2px solid rgba(232,182,76,.55);
+    background-color: transparent; color: #e8b64c;
+    font-weight: 700; font-size: .875rem;
+    transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+  }
+  .portfolio-card:hover .portfolio-cta {
+    background-color: #e8b64c; color: #06070c; border-color: #e8b64c;
+  }
+  .portfolio-cta svg { transition: transform .35s ease; }
+  .portfolio-card:hover .portfolio-cta svg { transform: translateX(4px); }
+
+  .corner-badge {
+    position: absolute; top: 1.5rem; right: 1.5rem; z-index: 5;
+    padding: .35rem .75rem; border-radius: .55rem;
+    border: 1px solid rgba(232,182,76,.35);
+    background-color: rgba(232,182,76,.08);
+    color: #e8b64c; font-size: 10px; font-weight: 900;
+    letter-spacing: .18em;
+  }
+
+  .timeline-wrap { position: relative; padding-left: 2rem; }
+  @media (min-width: 768px) { .timeline-wrap { padding-left: 3rem; } }
+  .timeline-line {
+    position: absolute; top: 6px; bottom: 6px; left: 7px; width: 2px;
+    background: linear-gradient(180deg, transparent, rgba(232,182,76,.55) 15%, rgba(232,182,76,.55) 85%, transparent);
+    border-radius: 99px;
+  }
+  @media (min-width: 768px) { .timeline-line { left: 11px; } }
+  .timeline-node {
+    position: absolute; left: -2rem; top: 1.65rem;
+    width: 18px; height: 18px; border-radius: 9999px;
+    background: radial-gradient(circle at 30% 30%, #f8dc9a, #e8b64c 45%, #a97f22);
+    box-shadow: 0 0 0 5px rgba(232,182,76,.12), 0 0 24px rgba(232,182,76,.55);
+  }
+  @media (min-width: 768px) {
+    .timeline-node { left: -3rem; width: 22px; height: 22px; top: 1.9rem; }
+  }
+
+  .skill-pill {
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), background-color .35s, border-color .35s, color .35s;
+    cursor: default;
+  }
+  .skill-pill:hover {
+    transform: translateY(-3px);
+    background-color: rgba(232,182,76,.10);
+    border-color: rgba(232,182,76,.5);
+    color: #f8dc9a;
+  }
+
+  .svg-ring-spin {
+    transform-box: view-box;
+    transform-origin: 240px 200px;
+    animation: svgSpin 40s linear infinite;
+  }
+  .svg-ring-spin-rev {
+    transform-box: view-box;
+    transform-origin: 240px 200px;
+    animation: svgSpin 26s linear infinite reverse;
+  }
+  @keyframes svgSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .svg-float-1 { transform-box: fill-box; transform-origin: center; animation: svgFloat 4s ease-in-out infinite; }
+  .svg-float-2 { transform-box: fill-box; transform-origin: center; animation: svgFloat 5s ease-in-out infinite 0.6s; }
+  .svg-float-3 { transform-box: fill-box; transform-origin: center; animation: svgFloat 4.5s ease-in-out infinite 1.2s; }
+  @keyframes svgFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(0, -9px); }
+  }
+
+  .svg-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: svgPulse 3.6s ease-in-out infinite;
+  }
+  @keyframes svgPulse {
+    0%, 100% { opacity: .4; transform: scale(1); }
+    50%      { opacity: 1;  transform: scale(1.3); }
+  }
+
+  .svg-dash { animation: svgDash 8s linear infinite; }
+  @keyframes svgDash {
+    to { stroke-dashoffset: -56; }
+  }
+
+  .pricing-tab {
+    position: relative;
+    padding: .75rem 1.1rem;
+    font-size: .82rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.5);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .3s, border-color .3s;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .pricing-tab:hover { color: rgba(255,255,255,.85); }
+  .pricing-tab.active {
+    color: #e8b64c;
+    border-color: #e8b64c;
+  }
+
+  .pricing-card {
+    position: relative;
+    padding: 1.9rem 1.6rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+    transition: border-color .4s, transform .4s cubic-bezier(.2,.8,.2,1);
+    display: flex;
+    flex-direction: column;
+  }
+  .pricing-card:hover {
+    border-color: rgba(232,182,76,.35);
+    transform: translateY(-4px);
+  }
+  .pricing-card > ul { flex: 1; }
+
+  .pricing-card.featured {
+    border-color: rgba(232,182,76,.5);
+    background: linear-gradient(180deg, rgba(232,182,76,.09), rgba(232,182,76,.02));
+    box-shadow: 0 20px 60px -30px rgba(232,182,76,.45);
+  }
+  .pricing-card.featured:hover {
+    border-color: rgba(232,182,76,.75);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 1.6rem;
+    padding: .32rem .8rem;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #a97f22, #e8b64c, #f8dc9a);
+    color: #06070c;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    box-shadow: 0 4px 14px rgba(232,182,76,.35);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,.06);
+    background: rgba(255,255,255,.02);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+
+<body class="font-inter text-white antialiased overflow-x-hidden selection:bg-gold selection:text-black">
+
+<!-- ═══════════ LOADER ═══════════ -->
+<div id="loader" class="fixed inset-0 z-[999] flex items-center justify-center bg-ink">
+  <div class="absolute inset-0 opacity-40"
+       style="background: radial-gradient(circle at 50% 50%, rgba(232,182,76,.18), transparent 62%)"></div>
+
+  <div class="relative text-center px-6">
+    <div class="loader-word mb-6 text-[10px] tracking-[.5em] text-gold/60">PORTFOLIO</div>
+
+    <h1 class="text-4xl md:text-6xl font-black leading-tight">
+      <span class="loader-word inline-block">Seyed Mohammad</span>
+      <span class="loader-word inline-block gradient-text">Ghaznavi</span>
+    </h1>
+
+    <div class="mt-10 h-[2px] w-56 md:w-72 mx-auto bg-white/10 rounded-full overflow-hidden">
+      <div id="loaderBar" class="h-full w-0 bg-gradient-to-r from-gold-dark via-gold to-gold-light"></div>
+    </div>
+
+    <div id="loaderPct" class="mt-4 text-xs tracking-widest text-white/35 tabular-nums">0%</div>
+  </div>
+</div>
+
+<!-- ═══════════ CURSOR ═══════════ -->
+<div id="cursor" class="pointer-events-none z-[200] hidden md:block opacity-0">
+  <div class="relative -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-gold/50 grid place-items-center"
+       style="box-shadow:0 0 30px rgba(232,182,76,.25)">
+    <div class="w-1.5 h-1.5 rounded-full bg-gold"></div>
+  </div>
+</div>
+
+<!-- ═══════════ SCROLL PROGRESS ═══════════ -->
+<div class="fixed top-0 left-0 right-0 z-[150] h-[2px] bg-white/5">
+  <div id="progress" class="h-full w-full origin-left scale-x-0 bg-gradient-to-r from-gold-dark via-gold to-gold-light"></div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav" class="fixed top-0 inset-x-0 z-[120] opacity-0">
+  <div class="mx-auto max-w-6xl px-5 md:px-8">
+    <div id="navInner" class="mt-4 flex items-center justify-between rounded-2xl border border-white/[.06] bg-ink/85 px-4 md:px-5 py-3 transition-colors duration-500">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-gold to-gold-dark text-ink font-black text-sm transition-transform duration-500 group-hover:rotate-[10deg] group-hover:scale-105">SG</span>
+        <span class="text-sm font-bold tracking-tight hidden sm:block">Seyed Mohammad Ghaznavi</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-1 text-sm text-white/60">
+        <a href="#about"      class="nav-link rounded-lg px-2.5 py-2 transition hover:text-gold">About</a>
+        <a href="#pillars"    class="nav-link rounded-lg px-2.5 py-2 transition hover:text-gold">Expertise</a>
+        <a href="#experience" class="nav-link rounded-lg px-2.5 py-2 transition hover:text-gold">Experience</a>
+        <a href="#skills"     class="nav-link rounded-lg px-2.5 py-2 transition hover:text-gold">Skills</a>
+        <a href="#work"       class="nav-link rounded-lg px-2.5 py-2 transition hover:text-gold">Portfolio</a>
+        <a href="#pricing"    class="nav-link rounded-lg px-2.5 py-2 transition hover:text-gold">Pricing</a>
+      </div>
+
+      <a href="#contact" class="group relative overflow-hidden rounded-xl border border-gold/40 px-4 py-2 text-xs md:text-sm font-bold text-gold transition-colors hover:text-ink">
+        <span class="relative z-10">Get in touch</span>
+        <span class="absolute inset-0 -translate-y-full bg-gold transition-transform duration-500 group-hover:translate-y-0"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div id="heroSpotlight" aria-hidden="true"></div>
+    <div id="heroParticles" aria-hidden="true"></div>
+
+    <div class="blob-1 absolute -top-40 -right-32 h-[38rem] w-[38rem] rounded-full blur-[130px]"
+         style="background: radial-gradient(circle, rgba(232,182,76,.16), transparent 70%)"></div>
+    <div class="blob-2 absolute -bottom-52 -left-40 h-[34rem] w-[34rem] rounded-full blur-[130px]"
+         style="background: radial-gradient(circle, rgba(110,120,255,.13), transparent 70%)"></div>
+
+    <div class="relative mx-auto w-full max-w-6xl px-6 md:px-8 pt-36 pb-28">
+      <div class="hero-el mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[.03] px-4 py-2 text-xs text-white/70">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+        </span>
+        Available for new projects
+      </div>
+
+      <h1 class="hero-el text-[2.7rem] leading-[1.12] sm:text-6xl md:text-7xl lg:text-[5.6rem] font-black tracking-tight">
+        <span class="block text-white/95">Seyed Mohammad</span>
+        <span class="block gradient-text text-glow">Ghaznavi</span>
+      </h1>
+
+      <div class="hero-el mt-7 flex flex-wrap items-center gap-x-3 gap-y-2 text-lg sm:text-xl md:text-2xl">
+        <span class="text-white/40">I am</span>
+        <div class="relative h-9 overflow-hidden">
+          <div id="rotator" class="flex flex-col will-change-transform">
+            <span class="flex h-9 items-center font-bold text-gold">a Web Developer (.NET)</span>
+            <span class="flex h-9 items-center font-bold text-gold">a 3D Designer</span>
+            <span class="flex h-9 items-center font-bold text-gold">a Logo &amp; Brand Designer</span>
+            <span class="flex h-9 items-center font-bold text-gold">a Web Developer (.NET)</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-el mt-8 max-w-2xl text-base md:text-lg leading-relaxed text-white/55">
+        From backend architecture and APIs with <span class="text-white/85 font-semibold">ASP.NET (MVC, WebApi, Blazor)</span> to 3D modeling and brand identity —
+        one person, three disciplines, 21 months of professional experience, and everything built with <span class="text-gold font-semibold">free and legal tools</span>.
+      </p>
+
+      <div class="hero-el mt-11 flex flex-wrap items-center gap-4">
+        <a href="#work"
+           class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-gold-dark via-gold to-gold-light px-7 py-4 text-sm font-black text-ink shadow-glow transition-transform duration-300 hover:scale-[1.03] active:scale-[.98]">
+          <span class="relative z-10 flex items-center gap-2">
+            View Portfolio
+            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="#contact"
+           class="rounded-2xl border border-white/12 bg-white/[.03] px-7 py-4 text-sm font-bold text-white/80 transition-all duration-300 hover:border-gold/50 hover:text-gold hover:bg-gold/[.06]">
+          Discuss a project
+        </a>
+      </div>
+
+      <div class="hero-el mt-16 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/[.07] pt-8">
+        <div>
+          <div class="text-2xl md:text-3xl font-black text-gold" data-count="21" data-suffix=" months">0 months</div>
+          <div class="mt-1 text-[11px] md:text-xs text-white/45">Professional experience</div>
+        </div>
+        <div>
+          <div class="text-2xl md:text-3xl font-black text-gold" data-count="2" data-suffix=" companies">0 companies</div>
+          <div class="mt-1 text-[11px] md:text-xs text-white/45">Work history</div>
+        </div>
+        <div>
+          <div class="text-2xl md:text-3xl font-black text-gold">∞</div>
+          <div class="mt-1 text-[11px] md:text-xs text-white/45">Attention to detail</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-white/30">
+      <span class="text-[10px] tracking-[.5em]">SCROLL</span>
+      <span class="h-10 w-[1px] bg-gradient-to-b from-white/40 to-transparent"></span>
+    </div>
+  </section>
+
+  <!-- ═══════════ ABOUT ═══════════ -->
+  <section id="about" class="relative py-24 md:py-36 overflow-hidden">
+    <div class="relative mx-auto max-w-6xl px-6 md:px-8">
+
+      <div class="reveal mb-14 max-w-3xl">
+        <div class="mb-4 flex items-center gap-3 text-[11px]">
+          <span class="font-black text-gold/40">01</span>
+          <span class="h-[1px] w-6 bg-gold/40"></span>
+          <span class="tracking-[.3em] uppercase text-gold/70">About</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight">
+          A developer with <span class="gradient-text">a designer's eye</span>
+        </h2>
+      </div>
+
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+
+        <div class="lg:col-span-7">
+
+          <div class="reveal space-y-5 text-base md:text-lg leading-loose text-white/60">
+            <p>
+              I'm Seyed Mohammad Ghaznavi — a .NET developer with a designer's eye.
+              For me, the worlds of code and design have never been separate; they share a common language:
+              <span class="text-white/85 font-semibold">attention to detail</span>.
+            </p>
+            <p>
+              On one side, I build enterprise web applications — with ASP.NET, layered architecture, LINQ,
+              and code that's <span class="text-white/85 font-semibold">readable and maintainable</span>.
+              I love refactoring — that moment when messy code becomes clean, lasting structure.
+              I think analytically and logically; I prefer to fully understand a problem before writing code.
+            </p>
+            <p>
+              On the other side, I spend hours in <span class="text-gold font-semibold">Blender, Inkscape, and GIMP</span>.
+              I model in 3D, set up scene lighting, and design logos and visual identities.
+              The tools I've chosen are free and legal — not out of limitation, but because I believe
+              when you're building something meant to last for years, it should be
+              <span class="text-white/85 font-semibold">clean and legitimate</span> from the foundation.
+            </p>
+            <p>
+              I'm quiet and calm by nature, and I prefer to let my work speak for itself.
+              Over all these years I've learned one thing:
+              <span class="text-gold font-semibold">quality isn't a matter of tools; it's a matter of eye and conscience</span>.
+            </p>
+          </div>
+
+          <ul class="reveal mt-10 space-y-5">
+            <li class="flex items-start gap-4">
+              <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gold/25 bg-gold/[.08] text-gold">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              </span>
+              <div>
+                <div class="text-sm font-bold text-white/90">Attention to detail</div>
+                <p class="mt-1 text-sm leading-relaxed text-white/50">
+                  Every line of code, every curve, every pixel is worth examining.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gold/25 bg-gold/[.08] text-gold">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+              </span>
+              <div>
+                <div class="text-sm font-bold text-white/90">Clean, lasting code</div>
+                <p class="mt-1 text-sm leading-relaxed text-white/50">
+                  Today's readability is tomorrow's stability. Code that isn't written just to run.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gold/25 bg-gold/[.08] text-gold">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+              </span>
+              <div>
+                <div class="text-sm font-bold text-white/90">A designer's eye</div>
+                <p class="mt-1 text-sm leading-relaxed text-white/50">
+                  Visual language and code language share the same goal: precisely communicating an idea.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gold/25 bg-gold/[.08] text-gold">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </span>
+              <div>
+                <div class="text-sm font-bold text-white/90">Work ethic</div>
+                <p class="mt-1 text-sm leading-relaxed text-white/50">
+                  I deliver work the way I'd want to receive it.
+                </p>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="lg:col-span-5 space-y-5">
+
+          <div class="reveal relative overflow-hidden rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.045] to-transparent p-6">
+            <div class="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-gold/10 blur-3xl"></div>
+            <div class="relative flex items-center gap-5">
+
+              <div class="relative shrink-0">
+                <div class="absolute -inset-1.5 rounded-2xl bg-gradient-to-br from-gold/35 to-transparent blur-md"></div>
+                <div class="relative h-20 w-20 overflow-hidden rounded-2xl border border-gold/30 bg-ink-700">
+                  <img src="profile.jpg" alt="Seyed Mohammad Ghaznavi"
+                       onerror="this.style.display='none'; this.parentElement.querySelector('.fallback').style.display='grid';"
+                       class="h-full w-full object-cover" />
+                  <div class="fallback hidden h-full w-full place-items-center">
+                    <span class="text-2xl font-black gradient-text">SG</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="min-w-0">
+                <div class="text-base font-black truncate">Seyed Mohammad Ghaznavi</div>
+                <div class="mt-1 text-xs text-gold/85">.NET Developer · 3D &amp; Brand Designer</div>
+                <div class="mt-2 flex items-center gap-1.5 text-xs text-white/45">
+                  <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Mazandaran, Iran
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal flex items-center gap-4 rounded-3xl border border-gold/20 bg-gradient-to-br from-gold/[.06] to-transparent p-5">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold/12 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <div>
+              <div class="text-sm font-bold">Military service</div>
+              <div class="mt-0.5 text-xs text-white/50">Completed — ready for full-time work</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/[.07] bg-white/[.02] p-6">
+            <div class="mb-5 flex items-center gap-3">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-gold/10 text-gold">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </span>
+              <h3 class="text-sm font-black">Education</h3>
+            </div>
+            <ul class="space-y-4 text-xs">
+              <li class="border-l-2 border-gold/40 pl-3.5">
+                <div class="text-sm font-bold text-white/90">M.Sc. in Computer Engineering</div>
+                <div class="mt-0.5 text-gold/85">Artificial Intelligence</div>
+                <div class="mt-1 text-white/40">Rozbehan Institute of Higher Education</div>
+              </li>
+              <li class="border-l-2 border-white/15 pl-3.5">
+                <div class="text-sm font-bold text-white/80">B.Sc. in Computer Engineering</div>
+                <div class="mt-0.5 text-white/55">Software Engineering</div>
+                <div class="mt-1 text-white/40">Rozbehan Institute of Higher Education</div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EXPERTISE ═══════════ -->
+  <section id="pillars" class="relative py-24 md:py-36">
+    <div class="mx-auto max-w-6xl px-6 md:px-8">
+
+      <div class="reveal mb-16 max-w-2xl">
+        <div class="mb-4 flex items-center gap-3 text-[11px]">
+          <span class="font-black text-gold/40">02</span>
+          <span class="h-[1px] w-6 bg-gold/40"></span>
+          <span class="tracking-[.3em] uppercase text-gold/70">What I Do</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight">
+          Three skills, <span class="gradient-text">one vision</span>
+        </h2>
+        <p class="mt-5 text-white/50 leading-relaxed">
+          The boundary between code and design is thin for me. The same precision I bring to a software project's structure,
+          I bring to the curves of a logo and the lighting of a render.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+
+        <article class="tilt-card reveal group relative overflow-hidden rounded-3xl border border-white/[.07] bg-gradient-to-b from-white/[.04] to-transparent p-8 card-hover">
+          <div class="relative z-[2]">
+            <div class="mb-6 grid h-14 w-14 place-items-center rounded-2xl border border-gold/25 bg-gold/[.08] text-gold">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+            </div>
+            <h3 class="text-xl font-black">Web Development</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/50">
+              Building scalable web applications with the .NET ecosystem — from layered architecture and database design to interactive UI.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">ASP.NET MVC</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Web API</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Blazor</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Onion</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tilt-card reveal group relative overflow-hidden rounded-3xl border border-white/[.07] bg-gradient-to-b from-white/[.04] to-transparent p-8 card-hover">
+          <div class="relative z-[2]">
+            <div class="mb-6 grid h-14 w-14 place-items-center rounded-2xl border border-gold/25 bg-gold/[.08] text-gold">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+            </div>
+            <h3 class="text-xl font-black">3D Design <span class="text-white/35 text-sm font-medium">(Non-CAD)</span></h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/50">
+              Artistic and organic modeling, material design, scene lighting, and rendering — for product, visual branding, and visual content.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Blender</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Modeling</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Shading</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Render</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tilt-card reveal group relative overflow-hidden rounded-3xl border border-white/[.07] bg-gradient-to-b from-white/[.04] to-transparent p-8 card-hover">
+          <div class="relative z-[2]">
+            <div class="mb-6 grid h-14 w-14 place-items-center rounded-2xl border border-gold/25 bg-gold/[.08] text-gold">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+            </div>
+            <h3 class="text-xl font-black">Logo &amp; Brand Identity</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/50">
+              Vector logo design, color systems, and typography, plus brand guidelines — identity that lasts for years.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Inkscape</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">GIMP</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Brand Identity</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/70">Logo Design</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EXPERIENCE ═══════════ -->
+  <section id="experience" class="relative py-24 md:py-36 overflow-hidden">
+    <div class="absolute inset-0 opacity-50"
+         style="background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(232,182,76,.06), transparent 70%)"></div>
+
+    <div class="relative mx-auto max-w-5xl px-6 md:px-8">
+
+      <div class="reveal mb-16 max-w-2xl">
+        <div class="mb-4 flex items-center gap-3 text-[11px]">
+          <span class="font-black text-gold/40">03</span>
+          <span class="h-[1px] w-6 bg-gold/40"></span>
+          <span class="tracking-[.3em] uppercase text-gold/70">Experience</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight">
+          The journey <span class="gradient-text">so far</span>
+        </h2>
+        <p class="mt-5 text-white/50 leading-relaxed">
+          A mix of professional experience with insurance records in software and engineering, plus freelance projects in design.
+        </p>
+      </div>
+
+      <div class="timeline-wrap">
+        <div class="timeline-line"></div>
+
+        <div class="exp-item relative mb-6 md:mb-8">
+          <div class="timeline-node"></div>
+          <div class="rounded-3xl border border-gold/25 bg-gradient-to-br from-gold/[.05] to-transparent p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-gold/15 text-gold">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <h3 class="text-base md:text-lg font-black text-gold">Professional Experience (With Insurance Record)</h3>
+            </div>
+            <p class="text-xs text-white/50 leading-relaxed">Full-time company work with social security records.</p>
+          </div>
+        </div>
+
+        <div class="exp-item relative mb-8 md:mb-12">
+          <div class="timeline-node"></div>
+          <div class="rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 md:p-9 card-hover">
+
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+              <div>
+                <h3 class="text-xl md:text-2xl font-black">Arvin Bonyan Nazo</h3>
+                <p class="mt-1.5 text-sm text-gold/85">Software Developer · .NET</p>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-white/65">Mazandaran</span>
+                <span class="rounded-lg border border-gold/25 bg-gold/[.08] px-3 py-1.5 text-gold">15 months</span>
+              </div>
+            </div>
+
+            <p class="mb-5 text-sm leading-relaxed text-white/50">
+              Development of a web-based medical imaging system with ASP.NET MVC that had been in progress for about 3 years —
+              with a focus on refactoring, architectural improvements, and building enterprise APIs.
+            </p>
+
+            <ul class="space-y-2.5 text-sm text-white/60">
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Implemented Social Security and Health Insurance APIs for service calculations</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Refactored half of the project's code — improving readability, performance, and execution speed</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Replaced raw string queries with LINQ and clarified complex queries</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Built WebApi endpoints for nearly all MVC functions to migrate the site toward an SPA model</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Redesigned reporting with QuestPDF instead of StimulSoft</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Collaborated with a ReactJS frontend developer on the new version</span></li>
+            </ul>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">ASP.NET MVC</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">WebApi</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">LINQ</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">QuestPDF</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">ReactJS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item relative mb-8 md:mb-12">
+          <div class="timeline-node"></div>
+          <div class="rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 md:p-9 card-hover">
+
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+              <div>
+                <h3 class="text-xl md:text-2xl font-black">Amvaj Abi Electronics Industry</h3>
+                <p class="mt-1.5 text-sm text-gold/85">Employee · Knowledge-Based Company</p>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-white/65">Tehran</span>
+                <span class="rounded-lg border border-gold/25 bg-gold/[.08] px-3 py-1.5 text-gold">6 months</span>
+              </div>
+            </div>
+
+            <p class="mb-5 text-sm leading-relaxed text-white/50">
+              Work in reverse engineering and electronic component design for sensitive industries — such as
+              petrochemical, gas, and oil.
+            </p>
+
+            <ul class="space-y-2.5 text-sm text-white/60">
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Designed PCBs from foreign samples and matched them to originals</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Redesigned the company logo and prepared presentations</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Designed front panels for component enclosures for printing and cutting</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Discovered the NIMA currency acquisition path, assisted with packaging, and translated client correspondence with Russian customers</span></li>
+            </ul>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">PCB Design</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Reverse Engineering</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Brand Redesign</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Technical Translation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item relative mb-6 md:mb-8">
+          <div class="timeline-node"></div>
+          <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/[.025] to-transparent p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-white/10 text-white/70">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </span>
+              <h3 class="text-base md:text-lg font-black text-white/85">Freelance &amp; Project-Based Experience</h3>
+            </div>
+            <p class="text-xs text-white/45 leading-relaxed">Logo, brand identity, and 3D design projects — without an insurance record.</p>
+          </div>
+        </div>
+
+        <div class="exp-item relative">
+          <div class="timeline-node"></div>
+          <div class="rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 md:p-9 card-hover">
+
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+              <div>
+                <h3 class="text-xl md:text-2xl font-black">Logo, Brand Identity &amp; 3D Design</h3>
+                <p class="mt-1.5 text-sm text-white/60">Freelancer · Independent Projects</p>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-white/65">Project-Based</span>
+                <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-white/65">No Insurance Record</span>
+              </div>
+            </div>
+
+            <p class="mb-5 text-sm leading-relaxed text-white/50">
+              Logo and brand identity design for small businesses, 3D product and scene modeling,
+              and commercial renders — all project-based and independent.
+            </p>
+
+            <ul class="space-y-2.5 text-sm text-white/60">
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Logo and brand identity design for small and mid-sized brands</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Non-CAD 3D modeling and product rendering</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Graphic design and brand mark redesign</span></li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>Visual content production for social media and presentations</span></li>
+            </ul>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Logo Design</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Brand Identity</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Blender</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">3D Modeling</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Inkscape</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SKILLS ═══════════ -->
+  <section id="skills" class="relative py-24 md:py-36 overflow-hidden">
+    <div class="relative mx-auto max-w-6xl px-6 md:px-8">
+
+      <div class="reveal mb-14 max-w-2xl">
+        <div class="mb-4 flex items-center gap-3 text-[11px]">
+          <span class="font-black text-gold/40">04</span>
+          <span class="h-[1px] w-6 bg-gold/40"></span>
+          <span class="tracking-[.3em] uppercase text-gold/70">Skills</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight">
+          A toolbox for <span class="gradient-text">code and creativity</span>
+        </h2>
+        <p class="mt-5 text-white/50 leading-relaxed">
+          I use each tool where it does the best job — not because it's trendy, not because it's habit.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+
+        <div class="reveal rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 card-hover">
+          <div class="mb-5 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/></svg>
+            </span>
+            <div>
+              <h3 class="text-base font-black">Backend</h3>
+              <p class="text-[11px] text-white/40">Server-side</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">C#</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">ASP.NET</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">WebApi</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">MVC</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Blazor</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">LINQ</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Entity Framework</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Onion Architecture</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">OOP</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">SQL Server</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">SQLite</span>
+          </div>
+        </div>
+
+        <div class="reveal rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 card-hover">
+          <div class="mb-5 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </span>
+            <div>
+              <h3 class="text-base font-black">Frontend</h3>
+              <p class="text-[11px] text-white/40">Client-side</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">HTML</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">CSS</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">SCSS</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Bootstrap</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">JavaScript</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">jQuery</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">JSX</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Three.js</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Blazor</span>
+          </div>
+        </div>
+
+        <div class="reveal rounded-3xl border border-gold/20 bg-gradient-to-br from-gold/[.045] to-transparent p-7 card-hover md:col-span-2">
+          <div class="mb-5 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-gold/12 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".6" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".6" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".6" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+            </span>
+            <div>
+              <h3 class="text-base font-black">Creative &amp; Design</h3>
+              <p class="text-[11px] text-white/40">Visual work</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Blender (3D Modeling)</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Non-CAD Modeling</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Shading &amp; Texturing</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Lighting &amp; Rendering</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Logo Design</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Brand Identity</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Inkscape</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">GIMP</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">DaVinci Resolve</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Typography</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Color Systems</span>
+          </div>
+        </div>
+
+        <div class="reveal rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 card-hover">
+          <div class="mb-5 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </span>
+            <div>
+              <h3 class="text-base font-black">Other</h3>
+              <p class="text-[11px] text-white/40">Extra tools</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Git</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">GitHub</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Unity</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Refactoring</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Code Review</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Regex Analysis</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Linux</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Research &amp; Search</span>
+          </div>
+        </div>
+
+        <div class="reveal rounded-3xl border border-white/[.07] bg-gradient-to-br from-white/[.035] to-transparent p-7 card-hover">
+          <div class="mb-5 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <div>
+              <h3 class="text-base font-black">English</h3>
+              <p class="text-[11px] text-white/40">Language</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Reading</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Writing</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Listening</span>
+            <span class="skill-pill rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-xs text-white/75">Speaking</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRINCIPLE ═══════════ -->
+  <section id="ethics" class="relative overflow-hidden py-24 md:py-36">
+    <div class="absolute inset-0 opacity-60"
+         style="background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(232,182,76,.08), transparent 70%)"></div>
+
+    <div class="relative mx-auto max-w-6xl px-6 md:px-8">
+
+      <div class="reveal mb-16 flex justify-center">
+        <svg viewBox="0 0 480 400" class="w-full max-w-sm md:max-w-md" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+          <defs>
+            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f8dc9a"/>
+              <stop offset="55%" stop-color="#e8b64c"/>
+              <stop offset="100%" stop-color="#a97f22"/>
+            </linearGradient>
+            <radialGradient id="glowCenter" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(232,182,76,0.22)"/>
+              <stop offset="60%" stop-color="rgba(232,182,76,0.05)"/>
+              <stop offset="100%" stop-color="rgba(232,182,76,0)"/>
+            </radialGradient>
+            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" result="b"/>
+              <feMerge>
+                <feMergeNode in="b"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <circle cx="240" cy="200" r="160" fill="url(#glowCenter)"/>
+
+          <circle cx="240" cy="200" r="145" stroke="rgba(232,182,76,0.08)" stroke-width="1" fill="none"/>
+          <circle cx="240" cy="200" r="105" stroke="rgba(232,182,76,0.06)" stroke-width="1" fill="none"/>
+
+          <circle cx="240" cy="200" r="145" class="svg-ring-spin"
+                  stroke="rgba(232,182,76,0.55)" stroke-width="1.5"
+                  stroke-dasharray="8 12" fill="none"/>
+          <circle cx="240" cy="200" r="105" class="svg-ring-spin-rev"
+                  stroke="rgba(232,182,76,0.40)" stroke-width="1.5"
+                  stroke-dasharray="5 9" fill="none"/>
+
+          <line x1="240" y1="138" x2="240" y2="75"
+                stroke="#e8b64c" stroke-opacity="0.6" stroke-width="1.8"
+                stroke-dasharray="6 8" stroke-linecap="round"
+                class="svg-dash"/>
+          <line x1="284" y1="212" x2="345" y2="260"
+                stroke="#e8b64c" stroke-opacity="0.6" stroke-width="1.8"
+                stroke-dasharray="6 8" stroke-linecap="round"
+                class="svg-dash" style="animation-delay:-2s"/>
+          <line x1="196" y1="212" x2="135" y2="260"
+                stroke="#e8b64c" stroke-opacity="0.6" stroke-width="1.8"
+                stroke-dasharray="6 8" stroke-linecap="round"
+                class="svg-dash" style="animation-delay:-4s"/>
+
+          <circle cx="240" cy="105" r="3" fill="#e8b64c" class="svg-pulse"/>
+          <circle cx="315" cy="237" r="3" fill="#e8b64c" class="svg-pulse" style="animation-delay:.8s"/>
+          <circle cx="165" cy="237" r="3" fill="#e8b64c" class="svg-pulse" style="animation-delay:1.6s"/>
+
+          <g transform="translate(240 200)" filter="url(#softGlow)">
+            <path d="M0 -58 L44 -38 L44 12 Q44 54 0 76 Q-44 54 -44 12 L-44 -38 Z"
+                  fill="rgba(232,182,76,0.10)"
+                  stroke="url(#shieldGrad)"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"/>
+            <path d="M-44 -38 L0 -58 L44 -38"
+                  stroke="url(#shieldGrad)" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M-19 10 L-5 24 L21 -2"
+                  stroke="#e8b64c" stroke-width="4.5" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <g transform="translate(240 45)">
+            <g class="svg-float-1">
+              <circle r="26" fill="rgba(232,182,76,0.06)" stroke="rgba(232,182,76,0.45)" stroke-width="1.5"/>
+              <text text-anchor="middle" y="7" font-family="ui-monospace, monospace" font-size="20" font-weight="700" fill="#e8b64c">&lt;/&gt;</text>
+            </g>
+          </g>
+
+          <g transform="translate(375 290)">
+            <g class="svg-float-2">
+              <circle r="30" fill="rgba(232,182,76,0.06)" stroke="rgba(232,182,76,0.45)" stroke-width="1.5"/>
+              <circle cx="-9" cy="-8" r="6" fill="#e8b64c"/>
+              <circle cx="9" cy="-8" r="6" fill="#f8dc9a"/>
+              <circle cx="0" cy="9" r="6" fill="#a97f22"/>
+              <circle cx="-9" cy="-8" r="6" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="0.8"/>
+              <circle cx="9" cy="-8" r="6" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="0.8"/>
+              <circle cx="0" cy="9" r="6" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="0.8"/>
+            </g>
+          </g>
+
+          <g transform="translate(105 290)">
+            <g class="svg-float-3">
+              <circle r="30" fill="rgba(232,182,76,0.06)" stroke="rgba(232,182,76,0.45)" stroke-width="1.5"/>
+              <path d="M 0 14
+                       C -7 6, -16 1, -16 -6
+                       C -16 -13, -8 -16, 0 -9
+                       C 8 -16, 16 -13, 16 -6
+                       C 16 1, 7 6, 0 14 Z"
+                    fill="rgba(232,182,76,0.12)"
+                    stroke="url(#shieldGrad)" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M -7 -7 C -7 -10, -4 -11, -2 -8"
+                    stroke="rgba(255,255,255,0.55)" stroke-width="1.2"
+                    fill="none" stroke-linecap="round"/>
+            </g>
+          </g>
+
+          <circle cx="130" cy="120" r="2" fill="#e8b64c" opacity="0.6" class="svg-pulse" style="animation-delay:2.1s"/>
+          <circle cx="360" cy="130" r="2" fill="#e8b64c" opacity="0.6" class="svg-pulse" style="animation-delay:2.6s"/>
+          <circle cx="380" cy="180" r="1.5" fill="#f8dc9a" opacity="0.5" class="svg-pulse" style="animation-delay:1.4s"/>
+          <circle cx="100" cy="180" r="1.5" fill="#f8dc9a" opacity="0.5" class="svg-pulse" style="animation-delay:3.2s"/>
+
+        </svg>
+      </div>
+
+      <div class="reveal mb-4 flex justify-center items-center gap-3 text-[11px]">
+        <span class="font-black text-gold/40">05</span>
+        <span class="h-[1px] w-6 bg-gold/40"></span>
+        <span class="tracking-[.3em] uppercase text-gold/70">Principle</span>
+      </div>
+
+      <h2 class="reveal text-3xl md:text-5xl font-black leading-[1.25] text-center mb-16">
+        Free tools,
+        <span class="gradient-text">a clear conscience</span>
+      </h2>
+
+      <div class="grid items-start gap-14 lg:grid-cols-2 lg:gap-20">
+
+        <div>
+          <p class="reveal text-base md:text-lg leading-loose text-white/60">
+            All of my work is produced with <span class="text-white font-semibold">free and legal</span> software:
+            <span class="text-gold font-semibold">Blender</span> for 3D,
+            <span class="text-gold font-semibold">Inkscape</span> for vector and logo,
+            <span class="text-gold font-semibold">GIMP</span> for image editing,
+            <span class="text-gold font-semibold">DaVinci Resolve</span> for video editing,
+            and <span class="text-gold font-semibold">Visual Studio</span> for software development.
+          </p>
+
+          <p class="reveal mt-5 text-base md:text-lg leading-loose text-white/60">
+            This isn't a <span class="text-white font-semibold">limitation; it's a conscious choice.</span>
+            No cracked licenses exist on my system, and no project is ever delivered with stolen software.
+          </p>
+
+          <div class="reveal mt-9 rounded-2xl border-l-2 border-gold/60 bg-white/[.03] p-6">
+            <p class="text-sm md:text-base leading-loose text-white/70">
+              The final quality of a piece depends on the <span class="text-gold font-bold">skill, eye, and experience of the designer</span>,
+              not the brand and price of the software. An SVG, PNG, or final render meets the same global standard —
+              and in many cases, files produced with free tools are actually <span class="text-white font-semibold">more editable and more durable</span>.
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+
+          <div class="reveal flex gap-5 rounded-2xl border border-white/[.07] bg-white/[.025] p-6 card-hover">
+            <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h4 class="font-black">No cracked licenses</h4>
+              <p class="mt-1.5 text-sm leading-relaxed text-white/50">
+                I don't use pirated software, and I don't ask you to use it for your project either.
+              </p>
+            </div>
+          </div>
+
+          <div class="reveal flex gap-5 rounded-2xl border border-white/[.07] bg-white/[.025] p-6 card-hover">
+            <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <h4 class="font-black">Cleaner income</h4>
+              <p class="mt-1.5 text-sm leading-relaxed text-white/50">
+                Work built with free and legal tools respects the creator's rights — and is ethically cleaner for you as well.
+              </p>
+            </div>
+          </div>
+
+          <div class="reveal flex gap-5 rounded-2xl border border-white/[.07] bg-white/[.025] p-6 card-hover">
+            <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9L12 18.4l1.9-5.8 5.8-1.9-5.8-1.9z"/></svg>
+            </div>
+            <div>
+              <h4 class="font-black">Quality, not the tool's name</h4>
+              <p class="mt-1.5 text-sm leading-relaxed text-white/50">
+                The difference is in the output, not the logo at the top of the window. The result is what you see and touch.
+              </p>
+            </div>
+          </div>
+
+          <div class="reveal flex gap-5 rounded-2xl border border-white/[.07] bg-white/[.025] p-6 card-hover">
+            <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div>
+              <h4 class="font-black">Independence and file durability</h4>
+              <p class="mt-1.5 text-sm leading-relaxed text-white/50">
+                Standard output files remain editable forever — with no dependency on subscriptions or licenses.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="reveal mt-20 marquee-mask overflow-hidden">
+        <div id="marqueeTrack">
+          <div class="flex shrink-0 items-center gap-10 pr-10">
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Blender</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Inkscape</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">GIMP</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">DaVinci Resolve</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Visual Studio</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">.NET</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">VS Code</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Git</span>
+            <span class="text-gold/30">◆</span>
+          </div>
+          <div class="flex shrink-0 items-center gap-10 pr-10" aria-hidden="true">
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Blender</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Inkscape</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">GIMP</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">DaVinci Resolve</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Visual Studio</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">.NET</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">VS Code</span>
+            <span class="text-gold/30">◆</span>
+            <span class="text-2xl md:text-4xl font-black text-white/[.13] whitespace-nowrap">Git</span>
+            <span class="text-gold/30">◆</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ PORTFOLIO ═══════════ -->
+  <section id="work" class="relative py-24 md:py-36 overflow-hidden">
+    <div class="relative mx-auto max-w-6xl px-6 md:px-8">
+
+      <div class="reveal mb-14 max-w-xl">
+        <div class="mb-4 flex items-center gap-3 text-[11px]">
+          <span class="font-black text-gold/40">06</span>
+          <span class="h-[1px] w-6 bg-gold/40"></span>
+          <span class="tracking-[.3em] uppercase text-gold/70">Portfolio</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight">
+          Two galleries, <span class="gradient-text">two worlds</span>
+        </h2>
+        <p class="mt-5 text-white/50 leading-relaxed">
+          One world of form and light, one world of mark and color. Explore each separately.
+        </p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+
+        <a href="3d.html"
+           class="portfolio-card reveal group relative block overflow-hidden rounded-[28px] bg-ink-800 p-9 md:p-11">
+          <div class="portfolio-shimmer" aria-hidden="true"></div>
+
+          <svg class="pointer-events-none absolute inset-0 h-full w-full opacity-[.055]" aria-hidden="true">
+            <defs>
+              <pattern id="isoGrid" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+                <path d="M30 0 L60 17 L30 34 L0 17 Z" fill="none" stroke="#e8b64c" stroke-width="1"/>
+                <path d="M30 17 L30 34" stroke="#e8b64c" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#isoGrid)"/>
+          </svg>
+
+          <div class="corner-badge">3D</div>
+
+          <div class="relative z-[3] pt-4">
+            <div class="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl border border-gold/25 bg-gradient-to-br from-gold/[.14] to-transparent text-gold transition-transform duration-700 group-hover:rotate-[12deg] group-hover:scale-110">
+              <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>
+              </svg>
+            </div>
+
+            <h3 class="text-2xl md:text-3xl font-black">3D Portfolio</h3>
+            <p class="mt-4 text-sm md:text-base leading-relaxed text-white/50">
+              Artistic non-CAD modeling, texturing, scene lighting, and final rendering — from product objects to concept scenes.
+            </p>
+
+            <div class="mt-7 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Modeling</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Texturing</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Lighting</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Rendering</span>
+            </div>
+
+            <div class="mt-9">
+              <span class="portfolio-cta">
+                <span>View 3D Gallery</span>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="logos.html"
+           class="portfolio-card reveal group relative block overflow-hidden rounded-[28px] bg-ink-800 p-9 md:p-11">
+          <div class="portfolio-shimmer" aria-hidden="true"></div>
+
+          <svg class="pointer-events-none absolute inset-0 h-full w-full opacity-[.055]" aria-hidden="true">
+            <defs>
+              <pattern id="circleGrid" x="0" y="0" width="70" height="70" patternUnits="userSpaceOnUse">
+                <circle cx="35" cy="35" r="20" fill="none" stroke="#e8b64c" stroke-width="1"/>
+                <circle cx="0" cy="0" r="20" fill="none" stroke="#e8b64c" stroke-width="1"/>
+                <circle cx="70" cy="70" r="20" fill="none" stroke="#e8b64c" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#circleGrid)"/>
+          </svg>
+
+          <div class="corner-badge">LOGO</div>
+
+          <div class="relative z-[3] pt-4">
+            <div class="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl border border-gold/25 bg-gradient-to-br from-gold/[.14] to-transparent text-gold transition-transform duration-700 group-hover:rotate-[-12deg] group-hover:scale-110">
+              <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="13.5" cy="6.5" r=".6" fill="currentColor"/>
+                <circle cx="17.5" cy="10.5" r=".6" fill="currentColor"/>
+                <circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/>
+                <circle cx="6.5" cy="12.5" r=".6" fill="currentColor"/>
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+              </svg>
+            </div>
+
+            <h3 class="text-2xl md:text-3xl font-black">Logo &amp; Brand Identity</h3>
+            <p class="mt-4 text-sm md:text-base leading-relaxed text-white/50">
+              Vector marks, color systems, and typography, plus brand guidelines — a cohesive, lasting identity for your business.
+            </p>
+
+            <div class="mt-7 flex flex-wrap gap-2">
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Logo Design</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Vector</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Brand Guide</span>
+              <span class="rounded-lg border border-white/10 bg-white/[.04] px-3 py-1.5 text-[11px] text-white/65">Typography</span>
+            </div>
+
+            <div class="mt-9">
+              <span class="portfolio-cta">
+                <span>View Logo Gallery</span>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRICING ═══════════ -->
+  <section id="pricing" class="relative py-24 md:py-36 overflow-hidden">
+    <div class="absolute inset-0 opacity-60"
+         style="background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(232,182,76,.06), transparent 70%)"></div>
+
+    <div class="relative mx-auto max-w-6xl px-6 md:px-8">
+
+      <div class="reveal mb-12 max-w-2xl">
+        <div class="mb-4 flex items-center gap-3 text-[11px]">
+          <span class="font-black text-gold/40">07</span>
+          <span class="h-[1px] w-6 bg-gold/40"></span>
+          <span class="tracking-[.3em] uppercase text-gold/70">Pricing</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight">
+          Transparent investment, <span class="gradient-text">no surprises</span>
+        </h2>
+        <p class="mt-5 text-white/50 leading-relaxed">
+          The prices below are starting points — tailored to each project's scope.
+          Before work begins, you'll receive the exact final quote <span class="text-white/80 font-semibold">in writing</span>.
+        </p>
+      </div>
+
+      <!-- Payment method banner -->
+      <div class="reveal mb-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/[.06] to-transparent px-5 py-4 md:px-6 md:py-5 flex items-start gap-4">
+        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/15 text-gold">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="6" width="20" height="12" rx="2"/>
+            <path d="M16 12h.01"/>
+          </svg>
+        </span>
+        <div>
+          <div class="text-sm font-bold text-white/90">Payments in USDT (BEP20)</div>
+          <p class="mt-1 text-xs leading-relaxed text-white/55">
+            All prices are in <span class="text-gold font-semibold">USD</span> and settled in <span class="text-gold font-semibold">USDT on the BEP20 network</span> (1:1 pegged to the US dollar). Standard split: 50% upfront, 50% on delivery.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal mb-10 flex flex-wrap gap-1 border-b border-white/[.07]">
+        <button data-tab="dev"    class="pricing-tab active">Web Development</button>
+        <button data-tab="design" class="pricing-tab">Logo &amp; Brand Identity</button>
+        <button data-tab="three"  class="pricing-tab">3D Design</button>
+      </div>
+
+      <div id="pricingPanels">
+
+        <!-- Web panel -->
+        <div data-panel="dev" class="pricing-panel">
+          <div class="grid gap-6 md:grid-cols-3">
+
+            <div class="pricing-card">
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Landing &amp; Corporate Site</h3>
+                <p class="mt-1 text-xs text-white/45">For introducing a business, product, or service</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$450</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 450 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/60">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Single-page or site up to 5 pages</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Responsive design (mobile, tablet, desktop)</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Contact form + gallery + map</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Basic SEO and optimized speed</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>2 months free support</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/40">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Delivery: 2-4 weeks
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+                Request a Consultation
+              </a>
+            </div>
+
+            <div class="pricing-card featured">
+              <div class="pricing-badge">RECOMMENDED</div>
+
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Custom ASP.NET Application</h3>
+                <p class="mt-1 text-xs text-white/45">A web system tailored to your needs</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$2,800</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 2,800 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/70">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>ASP.NET MVC / WebApi / Blazor backend</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>SQL Server + Entity Framework</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Admin panel + authentication + role levels</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Documented API (Swagger)</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Onion architecture and refactored code</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>3 months free support</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/45">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Delivery: 6-12 weeks
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl bg-gradient-to-r from-gold-dark via-gold to-gold-light py-3 text-sm font-black text-ink transition-transform hover:scale-[1.02]">
+                Request an Exact Quote
+              </a>
+            </div>
+
+            <div class="pricing-card">
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Monthly Maintenance &amp; Development</h3>
+                <p class="mt-1 text-xs text-white/45">For ongoing projects</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$350</span>
+                  <span class="text-sm font-bold text-gold">/ month</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 350 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/60">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Code review and incremental refactoring</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Bug fixes and performance optimization</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Adding new features</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Unlimited technical consulting</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Transparent monthly reports</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/40">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Minimum 3-month contract
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+                Request a Consultation
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Logo panel -->
+        <div data-panel="design" class="pricing-panel hidden">
+          <div class="grid gap-6 md:grid-cols-3">
+
+            <div class="pricing-card">
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Basic Logo</h3>
+                <p class="mt-1 text-xs text-white/45">A quick and principled start</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$180</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 180 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/60">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>2 initial concepts</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>2 revision rounds</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>SVG + PNG + PDF exports</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Fully editable vector file</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/40">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Duration: 7-14 days
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+                Request a Consultation
+              </a>
+            </div>
+
+            <div class="pricing-card featured">
+              <div class="pricing-badge">RECOMMENDED</div>
+
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Logo + Brand Identity</h3>
+                <p class="mt-1 text-xs text-white/45">Mark + color + type + core assets</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$650</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 650 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/70">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>3 initial logo concepts</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>4 revision rounds</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Color palette and typography selection</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Business card design</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Letterhead design</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Full vector exports</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/45">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Duration: 3-4 weeks
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl bg-gradient-to-r from-gold-dark via-gold to-gold-light py-3 text-sm font-black text-ink transition-transform hover:scale-[1.02]">
+                Request an Exact Quote
+              </a>
+            </div>
+
+            <div class="pricing-card">
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Extended Brand Identity</h3>
+                <p class="mt-1 text-xs text-white/45">For brands that need more assets</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$1,200</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 1,200 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/60">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Everything in Logo + Identity</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Social media post templates</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Presentation template</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Envelope design</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Invoice design</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>One additional revision round</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/40">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Duration: 4-6 weeks
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+                Request a Consultation
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3D panel -->
+        <div data-panel="three" class="pricing-panel hidden">
+          <div class="grid gap-6 md:grid-cols-3">
+
+            <div class="pricing-card">
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Single Model</h3>
+                <p class="mt-1 text-xs text-white/45">One object, modeling and basic render</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$220</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 220 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/60">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Modeling of one product or object</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Basic material and texture</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>3 renders from different angles</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Delivered .blend file</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/40">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Duration: 5-10 days
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+                Request a Consultation
+              </a>
+            </div>
+
+            <div class="pricing-card featured">
+              <div class="pricing-badge">RECOMMENDED</div>
+
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Model + Commercial Render</h3>
+                <p class="mt-1 text-xs text-white/45">For product showcases and catalogs</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$580</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 580 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/70">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Detailed product modeling</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Professional material and texture</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Studio lighting</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>5 high-resolution renders</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Full source file</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>One revision round</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/45">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Duration: 2-3 weeks
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl bg-gradient-to-r from-gold-dark via-gold to-gold-light py-3 text-sm font-black text-ink transition-transform hover:scale-[1.02]">
+                Request an Exact Quote
+              </a>
+            </div>
+
+            <div class="pricing-card">
+              <div class="mb-6">
+                <h3 class="text-lg font-black">Product Set</h3>
+                <p class="mt-1 text-xs text-white/45">Multiple products in matching style</p>
+              </div>
+
+              <div class="mb-6 border-b border-white/[.06] pb-6">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-white/45">From</span>
+                  <span class="text-3xl md:text-4xl font-black text-gold">$1,100</span>
+                </div>
+                <span class="mt-1 inline-block text-[11px] text-white/40">≈ 1,100 USDT</span>
+              </div>
+
+              <ul class="space-y-3 text-sm text-white/60">
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Modeling up to 3 products</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Matching material and lighting for the set</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>10 renders for the collection</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Separate source files</span></li>
+                <li class="flex gap-3"><span class="text-gold shrink-0">✓</span><span>Two revision rounds</span></li>
+              </ul>
+
+              <div class="mt-6 flex items-center gap-2 text-[11px] text-white/40">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Duration: 4-6 weeks
+              </div>
+
+              <a href="#contact" class="mt-6 block text-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+                Request a Consultation
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="reveal mt-16 grid gap-4 md:grid-cols-4">
+
+        <div class="trust-item">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="2"/>
+              <path d="M16 12h.01"/>
+            </svg>
+          </span>
+          <div>
+            <div class="text-sm font-bold">USDT payments</div>
+            <div class="mt-1 text-xs leading-relaxed text-white/50">USDT (BEP20) · 50% upfront, 50% on delivery</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+          <div>
+            <div class="text-sm font-bold">Quality guarantee</div>
+            <div class="mt-1 text-xs leading-relaxed text-white/50">Revisions until satisfied within the package</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+          </span>
+          <div>
+            <div class="text-sm font-bold">Full ownership</div>
+            <div class="mt-1 text-xs leading-relaxed text-white/50">Code and files are entirely yours</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </span>
+          <div>
+            <div class="text-sm font-bold">Free consultation</div>
+            <div class="mt-1 text-xs leading-relaxed text-white/50">Let's talk before you decide</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl border border-gold/20 bg-gradient-to-br from-gold/[.06] to-transparent p-8 md:p-10 text-center">
+        <div class="text-base md:text-lg text-white/85 leading-loose max-w-2xl mx-auto">
+          If you're torn between packages, or none quite fits your needs,
+          <span class="text-gold font-bold">a 15-minute call</span> can clarify the path — no cost, no commitment.
+          <br />
+          <span class="text-sm text-white/50">Ordering multiple services together (e.g., logo + site) qualifies for a package discount.</span>
+        </div>
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a href="#contact" class="rounded-2xl bg-gradient-to-r from-gold-dark via-gold to-gold-light px-7 py-3.5 text-sm font-black text-ink transition-transform hover:scale-[1.03]">
+            Request a Free Consultation
+          </a>
+          <a href="mailto:ghaznavipc@gmail.com" class="rounded-2xl border border-white/12 px-7 py-3.5 text-sm font-bold text-white/80 transition hover:border-gold/50 hover:text-gold">
+            Email Me Directly
+          </a>
+        </div>
+        <p class="mt-5 inline-flex items-center gap-2 text-xs text-white/40">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="6" width="20" height="12" rx="2"/>
+            <path d="M16 12h.01"/>
+          </svg>
+          Payments accepted in USDT (BEP20) — international-friendly and stable
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ CONTACT ═══════════ -->
+  <section id="contact" class="relative overflow-hidden py-24 md:py-36">
+    <div class="absolute inset-0 opacity-70"
+         style="background: radial-gradient(ellipse 60% 55% at 50% 100%, rgba(232,182,76,.13), transparent 70%)"></div>
+
+    <div class="relative mx-auto max-w-3xl px-6 text-center md:px-8">
+      <div class="reveal mb-5 flex items-center justify-center gap-3 text-[11px]">
+        <span class="font-black text-gold/40">08</span>
+        <span class="h-[1px] w-6 bg-gold/40"></span>
+        <span class="tracking-[.3em] uppercase text-gold/70">Let's Talk</span>
+      </div>
+
+      <h2 class="reveal text-3xl md:text-5xl font-black leading-tight">
+        Have a project in mind?
+        <br class="hidden sm:block" />
+        <span class="gradient-text">Let's build it.</span>
+      </h2>
+
+      <p class="reveal mx-auto mt-6 max-w-xl leading-relaxed text-white/50">
+        Whether it's a web application with ASP.NET, a 3D model, or a brand identity —
+        write me your idea and we'll explore it together.
+      </p>
+
+      <div class="reveal mt-11 flex flex-col items-center">
+        <a href="mailto:ghaznavipc@gmail.com"
+           class="group relative inline-flex flex-col items-center overflow-hidden rounded-2xl bg-gradient-to-r from-gold-dark via-gold to-gold-light px-10 py-5 text-ink transition-transform duration-300 hover:scale-[1.03] active:scale-[.98]"
+           style="box-shadow: 0 0 60px -15px rgba(232,182,76,.5);">
+          <span class="text-base font-black tracking-tight">Send an Email</span>
+          <span class="mt-1 text-[11px] font-medium opacity-70 select-all">ghaznavipc@gmail.com</span>
+        </a>
+
+        <p class="mt-4 flex items-center gap-1.5 text-xs text-white/40">
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          I usually respond within 24 hours
+        </p>
+      </div>
+
+      <div class="reveal mt-14">
+        <div class="mb-6 flex items-center justify-center gap-3 text-[11px] tracking-[.3em] text-white/35">
+          <span class="h-[1px] w-10 bg-white/10"></span>
+          Or via messengers
+          <span class="h-[1px] w-10 bg-white/10"></span>
+        </div>
+
+        <div id="contactIcons" class="flex flex-wrap items-center justify-center gap-3">
+
+          <a href="https://t.me/smghaznavi" target="_blank" rel="noopener"
+             class="contact-icon grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[.03] text-white/60 hover:border-gold/50 hover:bg-gold/[.08] hover:text-gold"
+             title="Telegram" aria-label="Telegram">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+
+          <a href="https://eitaa.com/smghaznavi" target="_blank" rel="noopener"
+             class="contact-icon grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[.03] text-white/60 hover:border-gold/50 hover:bg-gold/[.08] hover:text-gold"
+             title="Eitaa" aria-label="Eitaa">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3v3l5-3h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 8h10v1.5H7V8zm0 3h10v1.5H7V11zm0 3h7v1.5H7V14z"/></svg>
+          </a>
+
+          <a href="https://ble.ir/ghaznavipc" target="_blank" rel="noopener"
+             class="contact-icon grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[.03] text-white/60 hover:border-gold/50 hover:bg-gold/[.08] hover:text-gold"
+             title="Bale" aria-label="Bale">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.58 2 10c0 2.44 1.28 4.62 3.3 6.1-.1.9-.42 2-.98 3.02-.15.28.13.6.42.47 1.65-.72 3.22-1.72 3.9-2.2.78.13 1.6.2 2.44.2 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
+          </a>
+
+          <a href="https://github.com/ghaznavipc" target="_blank" rel="noopener"
+             class="contact-icon grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[.03] text-white/60 hover:border-gold/50 hover:bg-gold/[.08] hover:text-gold"
+             title="GitHub" aria-label="GitHub">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="reveal mt-12">
+        <a href="#work" class="inline-flex items-center gap-2 text-sm text-white/40 transition hover:text-gold">
+          Not sure yet? Take another look at the portfolio
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="relative border-t border-white/[.06] py-10">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-6 md:flex-row md:px-8">
+    <div class="flex items-center gap-3">
+      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-gold to-gold-dark text-ink text-sm font-black">SG</span>
+      <span class="text-sm text-white/50">Seyed Mohammad Ghaznavi</span>
+    </div>
+
+    <p class="text-center text-xs leading-relaxed text-white/35">
+      Built with free and legal tools · No cracked software
+    </p>
+
+    <p class="text-xs text-white/30">© <span id="year"></span> — All rights reserved</p>
+  </div>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const isTouch = window.matchMedia('(hover: none)').matches;
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ═══════ Smart loader ═══════ */
+  const skipLoader = document.documentElement.classList.contains('skip-loader');
+
+  if (skipLoader) {
+    document.getElementById('loader').style.display = 'none';
+    document.body.style.overflow = '';
+
+    gsap.set('#nav', { opacity: 1 });
+    gsap.from('#navInner', { y: -20, opacity: 0, duration: 0.5, ease: 'power3.out' });
+    gsap.from('.hero-el', { y: 30, opacity: 0, duration: 0.7, stagger: 0.07, ease: 'power3.out', delay: 0.1 });
+
+    ScrollTrigger.refresh();
+  } else {
+    const loader    = document.getElementById('loader');
+    const loaderBar = document.getElementById('loaderBar');
+    const loaderPct = document.getElementById('loaderPct');
+
+    document.body.style.overflow = 'hidden';
+
+    const counter = { v: 0 };
+    const intro = gsap.timeline({
+      onComplete: () => {
+        document.body.style.overflow = '';
+        sessionStorage.setItem('loaderShown', 'true');
+        ScrollTrigger.refresh();
+      }
+    });
+
+    intro
+      .from('.loader-word', { yPercent: 120, opacity: 0, duration: .9, stagger: .12, ease: 'power4.out' })
+      .to(loaderBar, { width: '100%', duration: 1.7, ease: 'power2.inOut' }, '-=0.45')
+      .to(counter, {
+        v: 100, duration: 1.7, ease: 'power2.inOut',
+        onUpdate: () => { loaderPct.textContent = Math.round(counter.v) + '%'; }
+      }, '<')
+      .to('.loader-word, #loaderBar, #loaderPct', { y: -20, opacity: 0, duration: .5, ease: 'power2.in', stagger: .04 }, '+=0.15')
+      .to(loader, { yPercent: -100, duration: 1, ease: 'power4.inOut' }, '-=0.2')
+      .set(loader, { display: 'none' })
+      .to('#nav', { opacity: 1, duration: .6 }, '-=0.55')
+      .from('#navInner', { y: -30, opacity: 0, duration: .7, ease: 'power3.out' }, '<')
+      .from('.hero-el', { y: 46, opacity: 0, duration: 1, stagger: .11, ease: 'power3.out' }, '-=0.75');
+  }
+
+  /* ═══════ Rotator ═══════ */
+  const rotator = document.getElementById('rotator');
+  if (rotator) {
+    const stepH = 36;
+    const rotTl = gsap.timeline({ repeat: -1, delay: 1.4 });
+    for (let i = 1; i <= 3; i++) {
+      rotTl.to(rotator, { y: -i * stepH, duration: .75, ease: 'power3.inOut' })
+           .to({}, { duration: 1.6 });
+    }
+    rotTl.set(rotator, { y: 0 });
+  }
+
+  /* ═══════ Scroll progress ═══════ */
+  gsap.to('#progress', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+  });
+
+  /* ═══════ Nav shadow ═══════ */
+  ScrollTrigger.create({
+    start: 'top -80',
+    onUpdate: (self) => {
+      const inner = document.getElementById('navInner');
+      if (!inner) return;
+      if (self.progress > 0 || self.scroll() > 80) {
+        inner.classList.add('shadow-2xl', 'border-white/10');
+      } else {
+        inner.classList.remove('shadow-2xl', 'border-white/10');
+      }
+    }
+  });
+
+  /* ═══════ Reveal ═══════ */
+  gsap.utils.toArray('.reveal').forEach((el) => {
+    gsap.from(el, {
+      y: 54, opacity: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' }
+    });
+  });
+
+  /* ═══════ Experience cards ═══════ */
+  gsap.utils.toArray('.exp-item').forEach((item) => {
+    gsap.from(item, {
+      x: -60, opacity: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: item, start: 'top 85%' }
+    });
+    const node = item.querySelector('.timeline-node');
+    if (node) {
+      gsap.from(node, {
+        scale: 0, duration: .7, ease: 'back.out(2)',
+        scrollTrigger: { trigger: item, start: 'top 85%' },
+        delay: .15
+      });
+    }
+  });
+
+  /* ═══════ Counters ═══════ */
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 92%',
+      once: true,
+      onEnter: () => {
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: target, duration: 1.8, ease: 'power2.out',
+          onUpdate: () => { el.textContent = Math.round(obj.v) + suffix; }
+        });
+      }
+    });
+  });
+
+  /* ═══════ Hero particles ═══════ */
+  const heroParticles = [];
+  const particleContainer = document.getElementById('heroParticles');
+
+  if (particleContainer && !isTouch) {
+    const COUNT = 26;
+
+    for (let i = 0; i < COUNT; i++) {
+      const p = document.createElement('span');
+      const size = 1.2 + Math.random() * 2.4;
+
+      p.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: 9999px;
+        background: ${Math.random() > .5 ? '#e8b64c' : 'rgba(255,255,255,.75)'};
+        box-shadow: 0 0 ${size * 3}px rgba(232,182,76,${size > 2 ? '.55' : '.25'});
+        pointer-events: none;
+        will-change: transform, opacity;
+      `;
+      particleContainer.appendChild(p);
+
+      const startX = Math.random() * 100;
+      const startY = 30 + Math.random() * 60;
+      const driftX = (Math.random() - .5) * 180;
+      const riseY  = -(160 + Math.random() * 300);
+      const duration = 7 + Math.random() * 7;
+      const peak = .3 + Math.random() * .5;
+
+      gsap.set(p, { left: startX + '%', top: startY + '%', x: 0, y: 0, opacity: 0 });
+
+      const tl = gsap.timeline({ repeat: -1, delay: Math.random() * 8, paused: true });
+      tl
+        .to(p, { opacity: peak, duration: 1.2, ease: 'power2.out' })
+        .to(p, { y: riseY, x: driftX, duration: duration, ease: 'none' }, '<')
+        .to(p, { opacity: 0, duration: 1.4, ease: 'power2.in' }, '-=1.4');
+
+      heroParticles.push(tl);
+    }
+
+    heroParticles.forEach(tl => tl.play());
+
+    ScrollTrigger.create({
+      trigger: '#hero',
+      start: 'top bottom',
+      end: 'bottom top',
+      onToggle: (self) => {
+        heroParticles.forEach(tl => self.isActive ? tl.play() : tl.pause());
+      }
+    });
+  }
+
+  /* ═══════ Tilt + glow ═══════ */
+  if (!isTouch) {
+    document.querySelectorAll('.tilt-card').forEach((card) => {
+      const glow = document.createElement('div');
+      glow.className = 'pillar-glow';
+      card.appendChild(glow);
+
+      let rafId = null;
+      let targetX = 0, targetY = 0;
+      let currentX = 0, currentY = 0;
+      let glowX = -1000, glowY = -1000;
+      let targetGlowX = -1000, targetGlowY = -1000;
+
+      const animate = () => {
+        currentX += (targetX - currentX) * 0.15;
+        currentY += (targetY - currentY) * 0.15;
+        glowX += (targetGlowX - glowX) * 0.2;
+        glowY += (targetGlowY - glowY) * 0.2;
+
+        card.style.transform = `perspective(900px) rotateY(${currentX}deg) rotateX(${currentY}deg)`;
+        glow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
+
+        const settled =
+          Math.abs(targetX - currentX) < 0.05 &&
+          Math.abs(targetY - currentY) < 0.05 &&
+          Math.abs(targetGlowX - glowX) < 0.5 &&
+          Math.abs(targetGlowY - glowY) < 0.5;
+
+        rafId = settled ? null : requestAnimationFrame(animate);
+      };
+
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - .5;
+        const y = (e.clientY - r.top ) / r.height - .5;
+
+        targetX = x * 9;
+        targetY = -y * 9;
+        targetGlowX = e.clientX - r.left - 180;
+        targetGlowY = e.clientY - r.top  - 180;
+
+        glow.style.opacity = 1;
+        if (!rafId) rafId = requestAnimationFrame(animate);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+        glow.style.opacity = 0;
+        if (!rafId) rafId = requestAnimationFrame(animate);
+      });
+    });
+  }
+
+  /* ═══════ Custom cursor ═══════ */
+  if (!isTouch) {
+    const cursor = document.getElementById('cursor');
+    const ring = cursor.querySelector('div');
+    const xTo = gsap.quickTo(cursor, 'x', { duration: .55, ease: 'power3' });
+    const yTo = gsap.quickTo(cursor, 'y', { duration: .55, ease: 'power3' });
+
+    window.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, { opacity: 1, duration: .3 });
+      xTo(e.clientX);
+      yTo(e.clientY);
+    }, { passive: true });
+
+    document.querySelectorAll('a, button, .tilt-card, .contact-icon, .skill-pill, .portfolio-card, .pricing-card').forEach((el) => {
+      el.addEventListener('mouseenter', () => gsap.to(ring, { scale: 1.9, borderColor: 'rgba(232,182,76,.9)', duration: .35 }));
+      el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1,   borderColor: 'rgba(232,182,76,.5)', duration: .35 }));
+    });
+
+    window.addEventListener('mouseleave', () => gsap.to(cursor, { opacity: 0, duration: .3 }));
+  }
+
+  /* ═══════ Hero spotlight ═══════ */
+  const hero = document.getElementById('hero');
+  const spotlight = document.getElementById('heroSpotlight');
+  if (hero && spotlight && !isTouch) {
+    let sRaf = null;
+    let sX = 0, sY = 0;
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      sX = e.clientX - r.left;
+      sY = e.clientY - r.top;
+      if (!sRaf) {
+        sRaf = requestAnimationFrame(() => {
+          spotlight.style.left = sX + 'px';
+          spotlight.style.top  = sY + 'px';
+          spotlight.style.opacity = 1;
+          sRaf = null;
+        });
+      }
+    }, { passive: true });
+    hero.addEventListener('mouseleave', () => { spotlight.style.opacity = 0; });
+  }
+
+  /* ═══════ Contact icons stagger ═══════ */
+  const contactIcons = document.getElementById('contactIcons');
+  if (contactIcons) {
+    gsap.from(contactIcons.children, {
+      y: 30, opacity: 0, scale: .8, duration: .7, stagger: .09, ease: 'back.out(1.7)',
+      scrollTrigger: { trigger: contactIcons, start: 'top 92%' }
+    });
+  }
+
+  /* ═══════ Hero parallax ═══════ */
+  gsap.to('#hero .grid-bg', {
+    y: 80, ease: 'none',
+    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+
+  /* ═══════ Pricing tabs ═══════ */
+  const tabBtns = document.querySelectorAll('.pricing-tab');
+  const panels  = document.querySelectorAll('.pricing-panel');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+
+      tabBtns.forEach((b) => b.classList.toggle('active', b === btn));
+
+      panels.forEach((p) => {
+        const isMatch = p.dataset.panel === target;
+        p.classList.toggle('hidden', !isMatch);
+        if (isMatch) {
+          gsap.fromTo(p,
+            { opacity: 0, y: 24 },
+            { opacity: 1, y: 0, duration: .55, ease: 'power3.out' }
+          );
+        }
+      });
+    });
+  });
+
+  /* ═══════ Pricing cards entrance ═══════ */
+  const activePanel = document.querySelector('.pricing-panel:not(.hidden)');
+  if (activePanel) {
+    gsap.from(activePanel.querySelectorAll('.pricing-card'), {
+      y: 50, opacity: 0, duration: .9, stagger: .12, ease: 'power3.out',
+      scrollTrigger: { trigger: activePanel, start: 'top 85%' }
+    });
+  }
+
+  /* Dev tool */
+  window.resetLoader = () => {
+    sessionStorage.removeItem('loaderShown');
+    location.reload();
+  };
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+});
+</script>
+
+</body>
+</html>
